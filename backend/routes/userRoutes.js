@@ -12,7 +12,7 @@ router.post("/register",async (req,res)=>{
       if(!response.success){
            return res.status(411).send({
              msg : "invalid credential format",
-             error :response.error.issues[0].message
+             detailError :response.error.issues[0].message
            })
       }
 
@@ -53,7 +53,7 @@ router.post("/login",async(req,res)=>{
       if(!response.success){
           return res.status(411).send({
               msg : "invalid credential format",
-              error : response.error
+              detailError :response.error.issues[0].message
           })
       }
 
