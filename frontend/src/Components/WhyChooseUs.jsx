@@ -1,7 +1,7 @@
 
 const WhyChooseUs = ()=>{
      return (
-         <div className="mt-16 text-white text-center pb-10">
+         <div id="learn_more" className="mt-16 text-white text-center pb-10">
                 <h2 className="text-3xl mb-10 font-semibold">Why Choose <span className="text-[#646cff] "> Bright Path? </span></h2>
              <div className="flex flex-wrap justify-center gap-8">
              <div className="max-w-xs border p-5 rounded-2xl">

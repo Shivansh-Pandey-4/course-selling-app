@@ -11,11 +11,11 @@ const HeroSection = () =>{
 
                   <p className="text-lg mt-4 leading-7"> your trusted guide to unlocking your potential. <br /> Our expert courses help you gain real-world skills and take steps <br /> toward a brighter future. Start your journey today.</p>
 
-                 <Link to={"/about"}>
+                 <a href="#learn_more">
                  
                   <button className=" mt-8 px-3 py-1 rounded-lg text-gray-400 hover:bg-[#646cff] hover:text-white cursor-pointer border-1 border-white">Learn More</button>
 
-                 </Link>
+                 </a>
 
                  <Link to={"/courses"}>
                  

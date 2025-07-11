@@ -56,7 +56,7 @@ const Contact = () =>{
                        <div className="m-2 mt-6" >
 
                           <label className="text-xl text-gray-300 " htmlFor="message">Message</label> <br />
-                          <textarea required className="border-2 border-[#646cff] text-white  px-2 mt-2 py-1 w-70 rounded-lg h-25"  placeholder="any thing what to share with us?" name="message" id="message"  value={message} onChange={(event)=>{ setMessage(event.target.value) }}     ></textarea>
+                          <textarea required className="border-2 border-[#646cff] text-white  px-2 mt-2 py-1 w-70 rounded-lg h-30"  placeholder="any thing you what to share with us?" name="message" id="message"  value={message} onChange={(event)=>{ setMessage(event.target.value) }}     ></textarea>
 
                       </div>
 

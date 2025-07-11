@@ -4,6 +4,8 @@ import Home from "./Components/Home";
 import Signup from "./Components/SignUp";
 import Contact from "./Components/Contact";
 import Navbar from "./Components/Navbar";
+import Courses from "./Components/Courses";
+import Footer from "./Components/Footer";
 import {createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
 import Login from "./Components/Login";
@@ -13,6 +15,7 @@ const App = ()=>{
       <div className="">
           <Navbar/>
            <Outlet/>
+          <Footer/>
            <ToastContainer/>
       </div>
    )
@@ -38,6 +41,10 @@ const appRouter = createBrowserRouter([
                {
                  path : "/login",
                  element : <Login/>
+               },
+               {
+                 path : "/courses",
+                 element : <Courses/>
                }
              ]
           }

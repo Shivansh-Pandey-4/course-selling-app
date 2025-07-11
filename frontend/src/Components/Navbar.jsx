@@ -15,19 +15,19 @@ const Navbar = () =>{
                       Home </li>
                     </Link> 
 
-                    <Link to={"/about"}>
-                            <li className="mx-5 cursor-pointer relative text-black hover:text-white after:content-[''] after:block after:h-[2px] after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left">
-                            About </li>
-                    </Link>
-
                      <Link to={"/contact"}>
                         <li className="mx-5 cursor-pointer relative text-black hover:text-white after:content-[''] after:block after:h-[2px] after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left">
                         Contact </li>
                      </Link>
 
-                        <Link to={"/service"}>
+                        <Link to={"/courses"}>
                             <li className="mx-5 cursor-pointer relative text-black hover:text-white after:content-[''] after:block after:h-[2px] after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left">
                             Courses </li>
+                        </Link>
+
+                        <Link to={"/cart"}>
+                            <li className="mx-5 cursor-pointer relative text-black hover:text-white after:content-[''] after:block after:h-[2px] after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left">
+                             Cart</li>
                         </Link>
 
                         <Link to={"/login"}>
