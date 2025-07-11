@@ -6,7 +6,8 @@ router.get("/",async (req,res)=>{
       try{
           const allCourse = await CourseModel.find({}).populate({path: "author_id",select : "name"});
           return res.send({
-              msg : allCourse
+              msg : "successfully fetched all the courses",
+              allCourse
           })
       }catch(err){
         return res.status(500).send({
