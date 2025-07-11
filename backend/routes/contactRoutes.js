@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {ContactModel} = require("../model/ContentModel");
+const {ContactModel} = require("../model/ContactModel");
 const contactSchema = require("../zod-validation/contactSchema");
 
 router.post("/",async (req,res)=>{
@@ -8,7 +8,7 @@ router.post("/",async (req,res)=>{
       if(!response.success){
           return res.status(411).send({
              msg : "invalid credential format",
-             detailError :response.error.issues[0].message
+             detailError : response.error.issues[0].message
           })
       }
 
@@ -25,7 +25,7 @@ router.post("/",async (req,res)=>{
       }catch(err){
           return res.status(500).send({
              msg : "server issue: failed to send message",
-             error : err.message
+             detailError : err.message
           })
       }
 })

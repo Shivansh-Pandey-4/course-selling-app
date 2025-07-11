@@ -3,6 +3,7 @@ require("dotenv").config();
 const cors = require("cors");
 const userRouter = require("./routes/userRoutes");
 const contactRouter = require("./routes/contactRoutes");
+const courseRouter = require("./routes/courseRoutes");
 const mongoose  = require("mongoose");
 const app = express();
 const port = 3000;
@@ -24,4 +25,5 @@ connectDb();
 app.use(cors(),express.json());
 app.use("/user",userRouter);
 app.use("/contact",contactRouter);
+app.use("/courses",courseRouter);
 

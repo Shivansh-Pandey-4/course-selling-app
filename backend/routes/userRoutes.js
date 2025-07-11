@@ -4,7 +4,6 @@ const {UserModel} = require("../model/UserModel");
 const {userRegistrationSchema,userLoginSchema} = require("../zod-validation/userAuthSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-console.log(process.env.USER_JWT_SECRET);
 
 
 router.post("/register",async (req,res)=>{
@@ -42,7 +41,7 @@ router.post("/register",async (req,res)=>{
       }catch(err){
           return res.status(500).send({
               msg : "issue with server",
-              error : err.message
+              detailError : err.message
           })
       }
 
@@ -83,7 +82,7 @@ router.post("/login",async(req,res)=>{
       }catch(err){
           return res.status(500).send({
               msg : "issue in the server",
-              error : err.message
+              detailError : err.message
           })
       }
 });
