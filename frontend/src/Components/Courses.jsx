@@ -24,7 +24,7 @@ const Courses = ()=>{
             <div className="bg-[#2d2d2d]">
               <div className="flex flex-wrap justify-around py-10">
               {
-                  courses.map((course)=> <CourseCard detail={course} />)
+                  courses.map((course)=> <CourseCard key={course._id} detail={course} />)
               }
            </div>
          </div>

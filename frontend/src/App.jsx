@@ -5,6 +5,7 @@ import Signup from "./Components/SignUp";
 import Contact from "./Components/Contact";
 import Navbar from "./Components/Navbar";
 import Courses from "./Components/Courses";
+import CourseDetail from "./Components/CourseDetail";
 import Footer from "./Components/Footer";
 import {createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
@@ -45,6 +46,10 @@ const appRouter = createBrowserRouter([
                {
                  path : "/courses",
                  element : <Courses/>
+               },
+               {
+                 path : "/courses/:course_id",
+                 element : <CourseDetail/>
                }
              ]
           }

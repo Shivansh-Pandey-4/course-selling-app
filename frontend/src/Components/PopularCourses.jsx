@@ -19,7 +19,7 @@ const PopularCourses = () =>{
                         <p className="mb-4">Master HTML, CSS, JavaScript, and backend technologies.</p>
                         <Link to={"/courses"}>
                             <button className="px-4 py-2 bg-[#646cff] rounded hover:bg-white hover:text-black transition">
-                            Purchase Now
+                            Learn More
                             </button>
                         </Link>
                     </div>
@@ -30,7 +30,7 @@ const PopularCourses = () =>{
                         <p className="mb-4">Analyze data, build models, and make smarter decisions.</p>
                         <Link to={"/courses"}>
                             <button className="px-4 py-2 bg-[#646cff] rounded hover:bg-white hover:text-black transition">
-                            Purchase Now
+                            Learn More
                             </button>
                         </Link>
                     </div>
@@ -41,7 +41,7 @@ const PopularCourses = () =>{
                         <p className="mb-4">Learn SEO, social media ads, and online brand growth.</p>
                         <Link to={"/courses"}>
                             <button className="px-4 py-2 bg-[#646cff] rounded hover:bg-white hover:text-black transition">
-                            Purchase Now
+                            Learn More
                             </button>
                         </Link>
                     </div>

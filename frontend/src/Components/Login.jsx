@@ -47,7 +47,7 @@ const Login = ()=>{
                     
                      <div className="my-5">
                          <label className="text-xl text-gray-300 " htmlFor="email">Email</label> <br />
-                         <input required  className="border-2 border-[#646cff] text-white  px-2 mt-2 py-1 w-70 rounded-lg" type="email" id="email" placeholder="Enter Email" value={email} onChange={(event)=>{setEmail(event.target.value)}} />
+                         <input autoFocus required  className="border-2 border-[#646cff] text-white  px-2 mt-2 py-1 w-70 rounded-lg" type="email" id="email" placeholder="Enter Email" value={email} onChange={(event)=>{setEmail(event.target.value)}} />
                      </div>
                      <div className="my-5">
 
