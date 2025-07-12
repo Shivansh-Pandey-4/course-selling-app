@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const CourseDetail = ()=>{
 
@@ -9,13 +11,23 @@ const CourseDetail = ()=>{
      async function fetchData() {
         const response = await fetch(`http://localhost:3000/courses/${course_id}`)
         const data = await response.json();
-        console.log(data);
-        setCourse(data.courseExist);
+        if(data.msg == "course exist"){
+           setCourse(data.courseExist);
+        }else {
+             toast.error(data.msg);
+        }
      }
 
      useEffect(()=>{
+       if(!course_id){
+          return (<div>
+            <h1> "OOPs No Course Exist With This Course ID" </h1>
+            </div>)
+       }
+
          fetchData();
-     },[]);
+
+     },[course_id]);
 
      
 
@@ -26,12 +38,12 @@ const CourseDetail = ()=>{
      return (
          <div className="flex  flex-col items-center pb-20 bg-[#2d2d2d] ">
                <h1 className=" text-white text-center py-10 text-2xl">{course.courseName.toUpperCase()} course details are here ⬇️</h1>
-         <div className="flex justify-center gap-20">
+         <div className="flex justify-center items-center gap-20">
 
                 <div>
                     <img className="w-80" src="/Course app-pana.png" alt="" />
                  </div>
-                <div className="flex items-center border p-5 w-6/12 gap-15 rounded-2xl border-[#646cff] ">
+                <div className="flex items-center border p-5 w-7/12 gap-15 rounded-2xl border-[#646cff] ">
                  
                   <img className="w-80 rounded-xl" src={course.imageUrl} alt="" />
                   <div>
@@ -40,11 +52,13 @@ const CourseDetail = ()=>{
                      <h3 className="text-xl pb-3 text-white border-[] font-serif" >Author : {course.author_id.name}</h3>
                      <h3 className="text-xl pb-3 text-white border-[] font-serif" >Live Time Access. <br /> Discort Community Support</h3>
                      <h4 className="text-xl pb-3 text-white border-[] font-serif" >Price : {course.price}</h4>
-                     {
+                     
+                      <Link to={"/cart"}>
                         <button className=" cursor-pointer px-4 py-2 bg-[#646cff] rounded hover:bg-white hover:text-black transition">
-                            Buy Now
+                            Add To Cart
                           </button>
-                     }
+                      </Link>
+                     
                   </div>
           </div>
                </div>

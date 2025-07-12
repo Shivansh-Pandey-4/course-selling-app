@@ -6,7 +6,7 @@ const CourseCard = (props)=>{
 
      return (
           <div className="text-white text-center max-w-xs border p-5 rounded-2xl bg-[#2d2d2d] transition transform hover:shadow-xl hover:-translate-y-2 duration-300">
-              <img className="w-85" src={imageUrl} alt="" />
+              <img className="w-75 h-45 " src={imageUrl} alt="" />
                <h1 className="text-lg font-bold mt-3 mb-2">{courseName.toUpperCase()}</h1>
                <p className="mb-2">{description}</p>
               <h3 className=" mb-2" >Author Name: {author_id.name} </h3>

@@ -7,6 +7,7 @@ import Navbar from "./Components/Navbar";
 import Courses from "./Components/Courses";
 import CourseDetail from "./Components/CourseDetail";
 import Footer from "./Components/Footer";
+import Cart from "./Components/Cart";
 import {createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
 import Login from "./Components/Login";
@@ -50,6 +51,10 @@ const appRouter = createBrowserRouter([
                {
                  path : "/courses/:course_id",
                  element : <CourseDetail/>
+               },
+               {
+                 path : "/cart",
+                 element : <Cart/>
                }
              ]
           }
