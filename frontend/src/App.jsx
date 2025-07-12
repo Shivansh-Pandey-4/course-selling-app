@@ -8,6 +8,7 @@ import Courses from "./Components/Courses";
 import CourseDetail from "./Components/CourseDetail";
 import Footer from "./Components/Footer";
 import Cart from "./Components/Cart";
+import Error from "./Components/Error";
 import {createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
 import Login from "./Components/Login";
@@ -27,6 +28,7 @@ const appRouter = createBrowserRouter([
           {
              path : "/",
              element : <App/>,
+             errorElement : <Error/>,
              children : [
                {
                  path : "/",

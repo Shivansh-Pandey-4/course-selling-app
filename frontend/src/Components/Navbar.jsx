@@ -4,7 +4,7 @@ const Navbar = () =>{
      return (
          <div className="flex justify-around items-center bg-[#646cff]">
             <div className="website-logo-container">
-                 <img className="w-28" src="../public\logo-transparent.png" alt="logo-website" />
+                 <img className="w-28" src="\logo-transparent.png" alt="logo-website" />
             </div>
             <div className="navigation-container">
                  <nav>
