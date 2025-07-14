@@ -12,14 +12,18 @@ import Error from "./Components/Error";
 import {createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
 import Login from "./Components/Login";
+import { LoginProvider } from "./context/LoginContext";
+
 
 const App = ()=>{
    return( 
       <div className="">
+       <LoginProvider>
           <Navbar/>
            <Outlet/>
           <Footer/>
-           <ToastContainer/>
+       </LoginProvider>
+      <ToastContainer/>
       </div>
    )
 }
