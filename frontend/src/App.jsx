@@ -13,15 +13,18 @@ import {createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
 import Login from "./Components/Login";
 import { LoginProvider } from "./context/LoginContext";
+import { CartProvider } from "./context/CartContext";
 
 
 const App = ()=>{
    return( 
       <div className="">
        <LoginProvider>
-          <Navbar/>
-           <Outlet/>
-          <Footer/>
+          <CartProvider>
+              <Navbar/>
+              <Outlet/>
+              <Footer/>
+          </CartProvider>
        </LoginProvider>
       <ToastContainer/>
       </div>
