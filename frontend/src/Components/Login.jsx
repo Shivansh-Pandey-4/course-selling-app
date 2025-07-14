@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import useUserIsLoggedIn from "../hooks/useIsUserLoggedIn";
@@ -7,11 +7,21 @@ import useUserIsLoggedIn from "../hooks/useIsUserLoggedIn";
 
 const Login = ()=>{
 
+
       const [email,setEmail] = useState("");
       const [password,setPassword] = useState("");
       const navigate = useNavigate();
       const isUserLoggedIn = useUserIsLoggedIn();
-      console.log(isUserLoggedIn);
+
+      
+               useEffect(() => {
+                     const token = localStorage.getItem("token");
+                     if (token) {
+                        navigate("/");
+                     }
+            }, [navigate]);
+
+
 
       async function handleForm(event) {
            event.preventDefault();

@@ -5,7 +5,7 @@ export const LoginContext = createContext(null);
 
 export const LoginProvider = (props)=>{
 
-     const [isLoggedIn , setIsLoggedIn] = useState(false);
+     const [isLoggedIn , setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
      return <LoginContext.Provider value={{isLoggedIn,setIsLoggedIn}}>
           {props.children}

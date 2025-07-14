@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import  {useNavigate} from "react-router-dom";
 
@@ -10,6 +10,13 @@ const Signup = ()=>{
       const [password,setPassword] = useState("");
       const [phoneNumber , setPhoneNumber] = useState("");
       const navigate = useNavigate();
+      
+            useEffect(() => {
+                     const token = localStorage.getItem("token");
+                     if (token) {
+                        navigate("/");
+                     }
+            }, [navigate]);
 
       async function handleForm(event) {
            event.preventDefault();
