@@ -11,7 +11,7 @@ const CourseCard = (props)=>{
                <p className="mb-2">{description}</p>
               <h3 className=" mb-2" >Author Name: {author_id.name} </h3>
               <h3 className=" mb-2" >Created At : {createdAt.slice(0, 10)} </h3>
-              <h3 className=" mb-2" >Price : {price}</h3>
+              <h3 className=" mb-2" >Price : ₹{price}</h3>
               <Link to={"/courses/"+_id}>
                              <button className=" mt-8 px-3 py-1 rounded-lg text-gray-400 hover:bg-[#646cff] hover:text-white cursor-pointer border-1 border-white">Learn More</button>
               </Link>

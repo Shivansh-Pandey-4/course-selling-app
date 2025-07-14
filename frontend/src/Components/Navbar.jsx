@@ -1,13 +1,10 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { LoginContext } from "../context/LoginContext";
 import { toast } from "react-toastify";
+import useUserIsLoggedIn from "../hooks/useIsUserLoggedIn";
 
 const Navbar = () =>{
 
-    const loginState = useContext(LoginContext);
-    console.log(loginState);
-
+     const isUserLoggedIn = useUserIsLoggedIn();
 
      return (
          <div className="flex justify-around items-center bg-[#646cff]">
@@ -39,11 +36,12 @@ const Navbar = () =>{
                         </Link>
 
                         {
-                            loginState.isLoggedIn ? (<Link to={"/"}>
+                            isUserLoggedIn.isLoggedIn ? (<Link to={"/"}>
                             <li onClick={()=>{
                                   localStorage.removeItem("token");
-                                  loginState.setIsLoggedIn(false);
+                                  isUserLoggedIn.setIsLoggedIn(false);
                                   toast.success("User Logged Out successfully.");
+                                  
                             }} className="mx-5 cursor-pointer relative text-black hover:text-white after:content-[''] after:block after:h-[2px] after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left">
                             Logout </li>
                         </Link> ) :   <> <Link to={"/signup"}>

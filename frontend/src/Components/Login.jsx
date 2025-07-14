@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { LoginContext } from "../context/LoginContext";
+import useUserIsLoggedIn from "../hooks/useIsUserLoggedIn";
+
 
 
 const Login = ()=>{
@@ -10,8 +10,8 @@ const Login = ()=>{
       const [email,setEmail] = useState("");
       const [password,setPassword] = useState("");
       const navigate = useNavigate();
-      const loginState = useContext(LoginContext);
-      console.log(loginState);
+      const isUserLoggedIn = useUserIsLoggedIn();
+      console.log(isUserLoggedIn);
 
       async function handleForm(event) {
            event.preventDefault();
@@ -35,7 +35,7 @@ const Login = ()=>{
              const data = await response.json();
              if(data.msg == "User Logged in successfully"){
                   localStorage.setItem("token",data.token);
-                   loginState.setIsLoggedIn(true);
+                   isUserLoggedIn.setIsLoggedIn(true);
                    toast.success("User LoggedIn successfully");
                     navigate("/");
              }else {
