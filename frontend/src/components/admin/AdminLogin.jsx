@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useIsAdminLoggedIn from "../../hooks/useIsAdminLoggedIn"
 
 
@@ -10,6 +10,12 @@ const AdminLogin = ()=>{
       const [password,setPassword] = useState("");
       const navigate = useNavigate();
       const isAdminLoggedIn = useIsAdminLoggedIn();
+
+      useEffect(()=>{
+          if(isAdminLoggedIn.isAdminLoggedIn){
+               navigate("/admin/dashboard");
+          }
+      },[]);
 
 
       async function handleForm(event) {

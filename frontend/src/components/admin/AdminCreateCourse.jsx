@@ -8,7 +8,7 @@ const AdminCreateCourse = ()=>{
 
       const [courseName,setCourseName] = useState("");
       const [description ,setDescription] = useState("");
-      const [price, setPrice] = useState(0);
+      const [price, setPrice] = useState();
       const [imageUrl, setImageUrl] = useState("");
 
       const navigate = useNavigate();
@@ -25,7 +25,7 @@ const AdminCreateCourse = ()=>{
 
       async function handleForm(event) {
            event.preventDefault();
-           
+
            
              const response = await fetch("http://localhost:3000/admin/create/course",{
                    method : "POST",

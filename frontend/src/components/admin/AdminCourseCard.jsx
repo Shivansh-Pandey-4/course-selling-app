@@ -9,6 +9,7 @@ const AdminCourseCard = (props)=>{
      const isAdminLoggedIn = useIsAdminLoggedIn();
 
      async function deleteCourse(){
+
             if(isAdminLoggedIn.isAdminLoggedIn == false){
                   return toast.error("only admin can delete the course");
             }
