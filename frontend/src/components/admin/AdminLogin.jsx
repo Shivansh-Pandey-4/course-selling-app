@@ -1,25 +1,23 @@
-import { useState , useEffect } from "react";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import useUserIsLoggedIn from "../hooks/useIsUserLoggedIn";
+import { toast } from "react-toastify";
+import { useState } from "react";
+import useIsAdminLoggedIn from "../../hooks/useIsAdminLoggedIn"
 
 
-
-const Login = ()=>{
-
+const AdminLogin = ()=>{
 
       const [email,setEmail] = useState("");
       const [password,setPassword] = useState("");
       const navigate = useNavigate();
-      const isUserLoggedIn = useUserIsLoggedIn();
+      const isAdminLoggedIn = useIsAdminLoggedIn();
 
       
-               useEffect(() => {
-                     const token = localStorage.getItem("token");
-                     if (token) {
-                        navigate("/");
-                     }
-            }, [navigate]);
+    //         useEffect(() => {
+    //                  const token = localStorage.getItem("token");
+    //                  if (token) {
+    //                     navigate("/");
+    //                  }
+    //         }, [navigate]);
 
 
 
@@ -34,7 +32,7 @@ const Login = ()=>{
              setPassword("");
            
 
-             const response = await fetch("http://localhost:3000/user/login",{
+             const response = await fetch("http://localhost:3000/admin/signin",{
                    method : "POST",
                    headers : {
                       "content-type" : "application/json",
@@ -43,11 +41,15 @@ const Login = ()=>{
              })
 
              const data = await response.json();
-             if(data.msg == "User Logged in successfully"){
-                  localStorage.setItem("token",data.token);
-                   isUserLoggedIn.setIsLoggedIn(true);
-                   toast.success("User LoggedIn successfully");
-                    navigate("/");
+
+             if(data.msg == "admin logged in successfully"){
+                  localStorage.setItem("adminToken",data.token);
+
+                   isAdminLoggedIn.setIsAdminLoggedIn(true);
+
+                   toast.success("Welcome Back Admin");
+
+                    navigate("/admin/dashboard");
              }else {
                   return toast.error(data.detailError || data.msg);
              }
@@ -87,4 +89,4 @@ const Login = ()=>{
 
 
 
-export default Login;
+export default AdminLogin;

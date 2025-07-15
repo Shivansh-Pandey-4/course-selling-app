@@ -36,8 +36,8 @@ const PopularCourses = () => {
   if (courses.length === 0) {
     return (
       <div>
-        <h2 className="text-3xl mb-10 font-semibold">Our Popular Courses</h2>
-        <h1 className="text-center text-2xl">Loading Course Details...</h1>
+        <h2 className="text-3xl mb-10 font-semibold text-white text-center">Our Popular Courses</h2>
+        <h1 className="text-center text-2xl text-white pb-10">Loading Course Details...</h1>
       </div>
     );
   }

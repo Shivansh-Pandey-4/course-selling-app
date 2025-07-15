@@ -29,6 +29,7 @@ router.get("/:course_id",async(req,res)=>{
        }
 
      try{
+            
             const courseExist = await CourseModel.findById(course_id).populate({path: "author_id", select:"name"});
             if(!courseExist){
                   return res.status(401).send({
@@ -43,7 +44,7 @@ router.get("/:course_id",async(req,res)=>{
 
      }catch(err){
           return res.status(500).send({
-              msg : "server issue:",
+              msg : "invalid course_id :",
               detailError : err.message
           })
      }

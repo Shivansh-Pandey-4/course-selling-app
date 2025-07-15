@@ -84,7 +84,7 @@ router.post("/signin",async (req,res)=>{
          })
       }
 
-})
+});
 
 router.post("/create/course",adminAuthMiddelware, async (req,res)=>{
            const response = createCourseSchema.safeParse(req.body);
@@ -143,6 +143,27 @@ router.delete("/delete/courses/:course_id", adminAuthMiddelware, async(req,res)=
                  detailError : err.message
              })
         }
+});
+
+router.get("/courses", adminAuthMiddelware, async (req,res)=>{
+
+         try{
+             const adminCourses = await CourseModel.find({author_id : req.author_id}).populate({path: "author_id"});
+             if(!adminCourses){
+                  return res.status(411).send({
+                      msg : "No course Exist for this author_id"
+                  })
+             }
+             return res.send({
+                  msg : "course exist",
+                  allCourses : adminCourses
+             })
+         }catch(err){
+             return res.status(500).send({
+                  msg : "server issue",
+                  detailError : err.message
+             })
+         }
 })
 
 

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import useUserIsLoggedIn from "../hooks/useIsUserLoggedIn";
+import useUserIsLoggedIn from "../../hooks/useIsUserLoggedIn";
 
 const Navbar = () =>{
 

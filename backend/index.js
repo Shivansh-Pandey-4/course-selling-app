@@ -23,7 +23,11 @@ async function connectDb(){
 
 connectDb();
 
-app.use(cors(),express.json());
+app.use(cors(
+     {
+         origin : "http://localhost:5173/"
+     }
+),express.json());
 app.use("/user",userRouter);
 app.use("/contact",contactRouter);
 app.use("/courses",courseRouter);
