@@ -15,9 +15,10 @@ import Login from "./components/user/Login";
 import { LoginProvider } from "./context/LoginContext";
 import { CartProvider } from "./context/CartContext";
 import AdminLogin from "./components/admin/AdminLogin";
-import DashBoard from "./components/admin/DashBoard";
+import AdminDashBoard from "./components/admin/AdminDashBoard";
 import AdminHeader from "./components/admin/AdminHeader";
 import { AdminProvider } from "./context/AdminLoginContext";
+import AdminCreateCourse from "./components/admin/AdminCreateCourse";
 
 
 
@@ -88,6 +89,7 @@ const appRouter = createBrowserRouter([
           {
             path : "/admin",
             element : <AdminApp/>,
+            errorElement : <Error/>,
             children : [
                {
                   path : "login",
@@ -95,7 +97,11 @@ const appRouter = createBrowserRouter([
                },
                {
                    path : "dashboard",
-                   element : <DashBoard/>
+                   element : <AdminDashBoard/>
+               },
+               {
+                  path : "create/course",
+                  element : <AdminCreateCourse/>
                }
             ]
           }

@@ -11,15 +11,6 @@ const AdminLogin = ()=>{
       const navigate = useNavigate();
       const isAdminLoggedIn = useIsAdminLoggedIn();
 
-      
-    //         useEffect(() => {
-    //                  const token = localStorage.getItem("token");
-    //                  if (token) {
-    //                     navigate("/");
-    //                  }
-    //         }, [navigate]);
-
-
 
       async function handleForm(event) {
            event.preventDefault();

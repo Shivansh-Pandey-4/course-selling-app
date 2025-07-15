@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AdminCourseCard from "./AdminCourseCard";
 
 
-const DashBoard = ()=>{
+const AdminDashBoard = ()=>{
 
     const [adminCourses , setAdminCourses] = useState([]);
     const [error,setError] = useState(false);
@@ -13,7 +13,7 @@ const DashBoard = ()=>{
     
     useEffect(()=>{
       if(isAdminLoggedIn.isAdminLoggedIn == false){
-           navigate("/");
+           navigate("/error");
       }else {
           fetchAdminData();
       }
@@ -46,7 +46,7 @@ const DashBoard = ()=>{
      return (
          <div>
              <h1 className="text-3xl text-center py-10">Currently You Have {adminCourses.length} Courses .</h1>
-             <div className="flex justify-center gap-10 pb-10">
+             <div className="flex flex-wrap justify-around px-20  gap-10 pb-10">
              {
                  adminCourses.map((course)=> <AdminCourseCard key={course._id} detail={course} />)
              }
@@ -55,4 +55,4 @@ const DashBoard = ()=>{
      )
 }
 
-export default DashBoard;
+export default AdminDashBoard;

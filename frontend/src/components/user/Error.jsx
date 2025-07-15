@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Error = ()=>{
      return (
         <div className="bg-[#2d2d2d]">
-            <div className="flex justify-center">
+            <div className=" flex justify-center">
                 <img className="max-w-lg" src="\404 Error-bro.png" alt="" />
             </div>
             <p className="text-center text-white pb-10 font-serif text-lg">Oops! It seems like the page you're trying to access doesn't exist. If you <br /> believe there's an issue, feel free to report it, and we'll look into it.</p>

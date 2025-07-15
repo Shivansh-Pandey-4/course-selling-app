@@ -21,8 +21,13 @@ const AdminHeader = () =>{
 
         {
          isAdminLoggedIn.isAdminLoggedIn ? <>
+          
+                       <Link to={"/admin/dashboard"}>
+                            <li className="mx-5 cursor-pointer relative text-black hover:text-white after:content-[''] after:block after:h-[2px] after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left">
+                            My Courses </li>
+                        </Link>
 
-                            <Link to={"/admin/create/course"}>
+                        <Link to={"/admin/create/course"}>
                             <li className="mx-5 cursor-pointer relative text-black hover:text-white after:content-[''] after:block after:h-[2px] after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left">
                             Create Course </li>
                         </Link>
