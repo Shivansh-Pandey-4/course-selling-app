@@ -126,7 +126,6 @@ router.delete("/delete/courses/:course_id", adminAuthMiddelware, async(req,res)=
                 }
 
         try{
-             
             
             const deleteCourse = await CourseModel.findByIdAndDelete({_id: course_id});
              if (!deleteCourse) {

@@ -1,9 +1,34 @@
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import useIsAdminLoggedIn from "../../hooks/useIsAdminLoggedIn";
+
 
 const AdminCourseCard = (props)=>{
     
      const {courseName,description,price,author_id,createdAt,imageUrl,_id} = props?.detail;     
+     const isAdminLoggedIn = useIsAdminLoggedIn();
+
+     async function deleteCourse(){
+            if(isAdminLoggedIn.isAdminLoggedIn == false){
+                  return toast.error("only admin can delete the course");
+            }
+            else {
+          const response = await fetch(`http://localhost:3000/admin/delete/courses/${_id}`,{
+                method : "DELETE",
+                headers: {
+                      "Content-Type" : "application/json",
+                      "token" : localStorage.getItem("adminToken")
+                }
+          });
+              const data = await response.json();
+              if(data.msg == "course deleted successfully"){
+                    toast.success("course deleted successfully");
+                    props.onDelete(_id);
+              }else {
+                   toast.error(data.msg);
+              }
+            }
+     }
      
 
      return (
@@ -15,14 +40,11 @@ const AdminCourseCard = (props)=>{
               <h3 className=" mb-2" >Created At : {createdAt.slice(0, 10)} </h3>
               <h3 className=" mb-2" >Price : ₹{price}</h3>
               <Link to={"/courses/"+_id}>
-                             <button className=" mt-8 px-3 py-1 rounded-lg text-gray-400 hover:bg-[#646cff] hover:text-white cursor-pointer border-1 border-white">Edit Course</button>
+                             <button className=" mt-8 px-3 py-1 rounded-lg text-gray-400 hover:bg-[#646cff] hover:text-white cursor-pointer border-1 border-white">Edit Course
+                             </button>
               </Link>
-                            <button onClick={()=>{
-                              cartState.setItems([...cartState.items,{props}])
-                              toast.success("Item added to Cart Successfully");
-                         }} 
-                              className=" cursor-pointer mt-8 ml-8 px-3 py-1 rounded-lg bg-[#646cff] hover:bg-white hover:text-black transition border-2 border-black ">
-                              Delete Course
+                            <button onClick={deleteCourse}
+                              className="cursor-pointer mt-8 ml-8 px-3 py-1 rounded-lg bg-[#646cff] hover:bg-white hover:text-black transition border-2 border-black "> Delete Course
                             </button>
          </div>
      )
