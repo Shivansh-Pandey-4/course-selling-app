@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const AdminModel = require("../model/AdminModel");
 const CourseModel = require("../model/CourseModel");
+const PurchasedCourseModel = require("../model/PurchasedCourseModel")
 const {adminSigninSchema,adminSignupSchema} = require("../zod-validation/adminAuthSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken"); 
@@ -163,6 +164,26 @@ router.get("/courses", adminAuthMiddelware, async (req,res)=>{
                   detailError : err.message
              })
          }
+});
+
+router.get("/users", adminAuthMiddelware, async(req,res)=>{
+     try{
+          const adminUsers = await PurchasedCourseModel.find({author_id : req.author_id});
+          if(!adminUsers || adminUsers.length == 0 ){
+                return res.status(411).send({
+                     msg : "no user has purchased your course till now"
+                })
+          }
+           return res.send({
+             msg : "user exist",
+             allUsers : adminUsers
+           })
+     }catch(err){
+         return res.status(500).send({
+              msg : "server issue",
+              detailError : err.message
+         })
+     }
 })
 
 

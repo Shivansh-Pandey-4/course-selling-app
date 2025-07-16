@@ -54,13 +54,34 @@ router.post("/purchase/:course_id", authMiddleware, async (req,res)=>{
               const {course_id} = req.params;
               if(!course_id){
                   return res.status(411).send({
-                      msg : "course cannot found without its id"
+                      msg : "course cannot be found without its id"
                   })
               }
               try{
-                   const courseExist = await CourseModel.findById(course_id).populate({path: "author_id", select : "name"});
+                   const courseExist = await CourseModel.findById(course_id);
+                   if(!courseExist){
+                        return res.status(411).send({
+                              msg : "course does not exist with this id"
+                        })
+                   }
+                   
+                   const purchaseCourse = await PurchasedCourseModel.create({
+                        course_id , author_id : courseExist.author_id , user_id : req.user_info.user_id
+                   })
+
+                   if(!purchaseCourse){
+                       throw new Error("server issue: Purchasing course failed");
+                   }
+
+                   return res.send({
+                       msg : "course purchased successfully"
+                   })
+
               }catch(err){
-                  
+                  return res.status(500).send({
+                      msg : "server issue",
+                      detailError : err.message
+                  })
               }
 
 })
