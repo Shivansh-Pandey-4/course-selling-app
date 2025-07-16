@@ -89,7 +89,7 @@ const AdminCreateCourse = ()=>{
                      <button className="border-2 px-6 rounded-lg py-1 mt-2 bg-indigo-600 text-white border-black font-serif hover:bg-indigo-700 cursor-pointer mb-30 text-xl">Create Course</button>
                </div>
                <div >
-                  <img className="w-90" src="/Mobile login-bro.png" alt="login-image" />
+                  <img className="w-90" src="/Design thinking-amico.png" alt="create course image" />
                </div>
             </form>
 

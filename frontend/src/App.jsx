@@ -19,6 +19,7 @@ import AdminDashBoard from "./components/admin/AdminDashBoard";
 import AdminHeader from "./components/admin/AdminHeader";
 import { AdminProvider } from "./context/AdminLoginContext";
 import AdminCreateCourse from "./components/admin/AdminCreateCourse";
+import AdminUsers from "./components/admin/AdminUsers";
 
 
 
@@ -102,6 +103,10 @@ const appRouter = createBrowserRouter([
                {
                   path : "create/course",
                   element : <AdminCreateCourse/>
+               },
+               {
+                 path : "users",
+                 element : <AdminUsers/>
                }
             ]
           }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import useCart from "../../hooks/useCart";
 
 
 
@@ -9,6 +10,7 @@ const CourseDetail = ()=>{
      const [course, setCourse] = useState(null);
      const {course_id} = useParams();
      const [wrongCourseId , setWrongCourseId] = useState(false);
+     const cartState = useCart();
 
      async function fetchData() {
         const response = await fetch(`http://localhost:3000/courses/${course_id}`)
@@ -36,9 +38,6 @@ const CourseDetail = ()=>{
           return <h1 className="text-3xl text-center py-10">Loading Course Details ......</h1>
      }
 
-     
-
-
 
      return (
          <div className="flex  flex-col items-center pb-20 bg-[#2d2d2d] ">
@@ -59,7 +58,7 @@ const CourseDetail = ()=>{
                      <h4 className="text-xl pb-3 text-white border-[] font-serif" >Price : ₹{course.price}</h4>
 
                         <button onClick={()=>{
-                              
+                              cartState.setItems([...cartState.items,{props:course}])
                               toast.success("Item added to Cart Successfully");
                         }} className=" cursor-pointer px-4 py-2 bg-[#646cff] rounded hover:bg-white hover:text-black transition">
                             Add To Cart
