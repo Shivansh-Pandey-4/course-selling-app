@@ -49,7 +49,7 @@ const AdminDashBoard = () => {
       <h1 className="text-3xl text-center py-10">
         Currently You Have {adminCourses.length} Course.
       </h1>
-      <div className="flex flex-wrap justify-around px-20 gap-10 pb-10">
+      <div className="flex flex-wrap justify-center px-20 gap-10 pb-10">
         {adminCourses.map((course) => (
           <AdminCourseCard
             key={course._id}

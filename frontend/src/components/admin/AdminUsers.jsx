@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import useIsAdminLoggedIn from "../../hooks/useIsAdminLoggedIn";
+import { useNavigate } from "react-router-dom";
 
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
+  const isAdminLoggedIn = useIsAdminLoggedIn();
+  const navigate = useNavigate(); 
+
 
   async function fetchData() {
     const response = await fetch("http://localhost:3000/admin/users", {
@@ -43,6 +48,9 @@ const AdminUsers = () => {
   }
 
   useEffect(() => {
+    if(isAdminLoggedIn.isAdminLoggedIn == false){
+          navigate("/error");
+    }
     fetchData();
   }, []);
 

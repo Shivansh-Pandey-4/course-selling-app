@@ -82,7 +82,7 @@ const AdminCreateCourse = ()=>{
 
                          <label className="text-xl text-gray-300 " htmlFor="image">Image Url</label><br />
 
-                         <textarea required  className="border-2 border-[#646cff] text-white  px-2 mt-2 py-1 h-30 w-70 rounded-lg" type="url" id="image" placeholder="Enter Price" value={imageUrl} onChange={(event)=>{setImageUrl(event.target.value)}} />
+                         <textarea required  className="border-2 border-[#646cff] text-white  px-2 mt-2 py-1 h-30 w-70 rounded-lg" type="url" id="image" placeholder="Enter Image URL" value={imageUrl} onChange={(event)=>{setImageUrl(event.target.value)}} />
 
                      </div>
                      
