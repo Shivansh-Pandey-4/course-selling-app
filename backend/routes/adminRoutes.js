@@ -215,5 +215,32 @@ router.delete("/delete/user/:user_id", adminAuthMiddelware, async(req,res)=>{
       }
 })
 
+router.get("/user/:user_id", adminAuthMiddelware, async(req,res)=>{
+        const {user_id} = req.params;
+        if(!user_id){
+             return res.status(411).send({
+                  msg : "user_id not provided in the url"
+             })
+        }
+
+        try{
+             const userExist = await UserModel.findById(user_id);
+             if(!userExist){
+                 return res.status(411).send({
+                     msg : "invalid user_id provided"
+                 })
+             }
+             return res.send({
+                 msg : "user exist",
+                 userExist
+             })
+        }catch(err){
+             return res.status(500).send({
+                 msg : "server issue",
+                 detailError : `failed to fetch UserData : ${err.message}`
+             })
+        }
+})
+
 
 module.exports = router;
