@@ -20,6 +20,7 @@ import AdminHeader from "./components/admin/AdminHeader";
 import { AdminProvider } from "./context/AdminLoginContext";
 import AdminCreateCourse from "./components/admin/AdminCreateCourse";
 import AdminUsers from "./components/admin/AdminUsers";
+import AdminUpdateUser from "./components/admin/AdminUpdateUser";
 
 
 
@@ -107,6 +108,10 @@ const appRouter = createBrowserRouter([
                {
                  path : "users",
                  element : <AdminUsers/>
+               },
+               {
+                 path : "update/user/:user_id",
+                 element : <AdminUpdateUser/>
                }
             ]
           }
