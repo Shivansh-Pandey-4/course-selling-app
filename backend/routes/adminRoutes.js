@@ -3,12 +3,14 @@ const router = express.Router();
 const AdminModel = require("../model/AdminModel");
 const CourseModel = require("../model/CourseModel");
 const {UserModel} = require("../model/UserModel");
+const {ContactModel} = require("../model/ContactModel");
 const {adminSigninSchema,adminSignupSchema} = require("../zod-validation/adminAuthSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken"); 
 const adminAuthMiddelware = require("../middleware/adminAuthMiddleware");
 const createCourseSchema = require("../zod-validation/createCourseSchema");
 const {userUpdateSchema} = require("../zod-validation/userAuthSchema");
+const { deleteModel } = require("mongoose");
 
 
 router.post("/signup",async (req,res)=>{
@@ -282,6 +284,48 @@ router.put("/update/user/:id", adminAuthMiddelware, async(req,res)=>{
          })
        }
 });
+
+router.get("/contacts", adminAuthMiddelware, async (req,res)=>{
+        try{
+            const allContacts = await ContactModel.find({});
+            return res.send({
+                 msg : "contacts exists",
+                 allContacts
+            })
+              
+        }catch(err){
+             return res.status(500).send({
+                 msg : "server issue",
+                 detailError : err.message
+             })
+        }
+})
+
+router.delete("/delete/contact/:contact_id", adminAuthMiddelware, async(req,res)=>{
+        const {contact_id} = req.params;
+        if(!contact_id){
+             return res.status(411).send({
+                 msg : "course_id is not provided"
+             })
+        }
+        try{
+             const deleteContact = await ContactModel.findOneAndDelete({_id : contact_id});
+             if(!deleteContact){
+                 return res.status(411).send({
+                     msg : "invalid course_id: failed to delete"
+                 })
+             }
+             return res.send({
+                 msg : "contact deleted successfully",
+                 deleteModel
+             })
+        }catch(err){
+             return res.status(500).send({
+                 msg : "server issue",
+                 detailError : err.message
+             })
+        }
+})
 
 
 module.exports = router;
