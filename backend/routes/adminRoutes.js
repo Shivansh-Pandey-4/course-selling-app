@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken"); 
 const adminAuthMiddelware = require("../middleware/adminAuthMiddleware");
 const createCourseSchema = require("../zod-validation/createCourseSchema");
+const {userUpdateSchema} = require("../zod-validation/userAuthSchema");
 
 
 router.post("/signup",async (req,res)=>{
@@ -240,7 +241,47 @@ router.get("/user/:user_id", adminAuthMiddelware, async(req,res)=>{
                  detailError : `failed to fetch UserData : ${err.message}`
              })
         }
-})
+});
+
+router.put("/update/user/:id", adminAuthMiddelware, async(req,res)=>{
+     const response = userUpdateSchema.safeParse(req.body);
+     if(!response.success){
+          return res.status(411).send({
+             msg : "invalid credentials format",
+             detailError : response.error.issues[0].message
+          })
+     }
+
+       const {id} = req.params;
+       const userData = req.body;
+
+       if(!id){
+           return res.status(411).send({
+              msg : "user_id is not provided."
+           })
+       }
+       try{
+              const updatedUserData = await UserModel.findByIdAndUpdate(id,{$set : {email: userData.email, name: userData.userName, phoneNumber: userData.phoneNumber}}, {new : true, runValidators : true});   
+
+
+              if(!updatedUserData){
+                  return res.status(411).send({
+                     msg : "invalid user_id"
+                  })
+              }
+
+              return res.send({ 
+                 msg : "user updated successfully",
+                 updatedUserData
+              })
+
+       }catch(err){
+         return res.status(500).send({
+             msg : "server issue",
+             detailError : err.message
+         })
+       }
+});
 
 
 module.exports = router;

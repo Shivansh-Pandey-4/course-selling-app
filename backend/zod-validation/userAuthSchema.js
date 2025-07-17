@@ -13,4 +13,10 @@ const userLoginSchema = zod.object({
       password : zod.string().min(6,{message : "minimum six characters required in password field"})
 })
 
-module.exports = {userRegistrationSchema, userLoginSchema };
+const userUpdateSchema = zod.object({
+       userName : zod.string().min(4,{message : "minimum 4 characters required in the username"}).max(50,{message: "maximum 50 characters are allowed in the username"}),
+       email : zod.string().email({message: "invalid email type"}),
+       phoneNumber : zod.number({message : "ten characters are required in the phoneNumber"})
+})
+
+module.exports = {userRegistrationSchema, userLoginSchema, userUpdateSchema };
