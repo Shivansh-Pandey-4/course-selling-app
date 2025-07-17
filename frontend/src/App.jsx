@@ -21,6 +21,7 @@ import { AdminProvider } from "./context/AdminLoginContext";
 import AdminCreateCourse from "./components/admin/AdminCreateCourse";
 import AdminUsers from "./components/admin/AdminUsers";
 import AdminUpdateUser from "./components/admin/AdminUpdateUser";
+import AdminContacts from "./components/admin/AdminContacts";
 
 
 
@@ -112,6 +113,10 @@ const appRouter = createBrowserRouter([
                {
                  path : "update/user/:user_id",
                  element : <AdminUpdateUser/>
+               },
+               {
+                 path : "contacts",
+                 element : <AdminContacts/>
                }
             ]
           }

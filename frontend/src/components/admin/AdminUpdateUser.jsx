@@ -83,7 +83,7 @@ const AdminUpdateUser = ()=>{
                             <label className="text-xl" htmlFor="phoneNumber">Phone Number</label> <br />
                             <input type="number" id="phoneNumber" required onChange={(event)=>setUserPhone(event.target.value)} value={userPhone} className=" w-60 p-2 mt-1 rounded-lg h-8 border-indigo-500 border-2" />
                      </div>
-                     <button type="submit" className="border py-1 px-16 mt-5 rounded-lg bg-indigo-500 text-white border-black font-serif text-lg hover:bg-indigo-600 cursor-pointer">Submit</button>
+                     <button type="submit" className="border py-1 px-16 mt-5 rounded-lg bg-indigo-500 text-white border-black font-serif text-lg hover:bg-indigo-600 cursor-pointer">Update</button>
                  </form>
              </div>
          </div>
