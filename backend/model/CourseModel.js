@@ -17,7 +17,7 @@ const courseSchema = new mongoose.Schema({
   author_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "Admin"
+    ref: "User"
   },
   imageUrl : {
      type : String,

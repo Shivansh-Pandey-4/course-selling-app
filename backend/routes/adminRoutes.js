@@ -1,20 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const AdminModel = require("../model/AdminModel");
 const CourseModel = require("../model/CourseModel");
 const {UserModel} = require("../model/UserModel");
 const {ContactModel} = require("../model/ContactModel");
-const {adminSigninSchema,adminSignupSchema} = require("../zod-validation/adminAuthSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken"); 
 const adminAuthMiddelware = require("../middleware/adminAuthMiddleware");
 const createCourseSchema = require("../zod-validation/createCourseSchema");
-const {userUpdateSchema} = require("../zod-validation/userAuthSchema");
-const { deleteModel } = require("mongoose");
+const {userUpdateSchema, userRegistrationSchema, userLoginSchema} = require("../zod-validation/userAuthSchema");
 
 
 router.post("/signup",async (req,res)=>{
-      const response = adminSignupSchema.safeParse(req.body);
+      const response = userRegistrationSchema.safeParse(req.body);
       if(!response.success){
           return res.status(401).send({
              msg : "invalid credential format",
@@ -22,9 +19,9 @@ router.post("/signup",async (req,res)=>{
           })
       }
 
-      const {email,password,name} = req.body;
+      const {email,password,name, phoneNumber} = req.body;
       try{
-          const emailExist = await AdminModel.findOne({email});
+          const emailExist = await UserModel.findOne({email});
           if(emailExist){
               return res.status(403).send({
                   msg : "email should be unique. This email already exist in the database. "
@@ -36,7 +33,7 @@ router.post("/signup",async (req,res)=>{
               throw new Error("issue with password hashing in bcrypt library");
           }
 
-          const newAdmin = await AdminModel.create({name:name.trim().toUpperCase(), email: email.trim().toLowerCase(),password: hashedPassword});
+          const newAdmin = await UserModel.create({name:name.trim().toUpperCase(), email: email.trim().toLowerCase(),password: hashedPassword, phoneNumber, isAdmin:true});
           return res.send({
              msg : "Admin Signed Up successfully"
           })
@@ -50,7 +47,7 @@ router.post("/signup",async (req,res)=>{
 })
 
 router.post("/signin",async (req,res)=>{
-      const response = adminSigninSchema.safeParse(req.body);
+      const response = userLoginSchema.safeParse(req.body);
       if(!response.success){
          return res.status(411).send({
               msg : "invalid credential format",
@@ -60,7 +57,7 @@ router.post("/signin",async (req,res)=>{
 
       const {email,password} = req.body;
       try{
-         const userExist = await AdminModel.findOne({email: email.trim()});
+         const userExist = await UserModel.findOne({email: email.trim()});
          if(!userExist){
               return res.status(411).send({
                  msg : "invalid email or password"
@@ -74,7 +71,7 @@ router.post("/signin",async (req,res)=>{
              })
          } 
 
-         const token = jwt.sign({author_id: userExist._id},process.env.ADMIN_JWT_SECRET,{expiresIn: "1h"})
+         const token = jwt.sign({author_id: userExist._id, isAdmin: userExist.isAdmin},process.env.ADMIN_JWT_SECRET,{expiresIn: "1h"})
 
          return res.send({
              msg : "admin logged in successfully",
@@ -103,7 +100,7 @@ router.post("/create/course",adminAuthMiddelware, async (req,res)=>{
 
            try{
                const newCourse = await CourseModel.create({
-                  courseName: courseName.trim(), description: description.trim() , price, author_id : req.author_id, imageUrl
+                  courseName: courseName.trim(), description: description.trim() , price, author_id : req.author_info.author_id, imageUrl
                })
 
                return res.send({
@@ -151,7 +148,7 @@ router.delete("/delete/courses/:course_id", adminAuthMiddelware, async(req,res)=
 router.get("/courses", adminAuthMiddelware, async (req,res)=>{
 
          try{
-             const adminCourses = await CourseModel.find({author_id : req.author_id}).populate({path: "author_id"});
+             const adminCourses = await CourseModel.find({author_id : req.author_info.author_id}).populate({path: "author_id"});
              if(!adminCourses){
                   return res.status(411).send({
                       msg : "No course Exist for this author_id"
@@ -173,7 +170,7 @@ router.get("/users", adminAuthMiddelware, async(req,res)=>{
 
      try{
           const allUsers = await UserModel.find({});
-          if(!allUsers || allUsers.lenght == 0){
+          if(!allUsers || allUsers.length == 0){
               return res.status(411).send({
                  msg : "user does not exist"
               })
@@ -263,7 +260,7 @@ router.put("/update/user/:id", adminAuthMiddelware, async(req,res)=>{
            })
        }
        try{
-              const updatedUserData = await UserModel.findByIdAndUpdate(id,{$set : {email: userData.email, name: userData.userName, phoneNumber: userData.phoneNumber}}, {new : true, runValidators : true});   
+              const updatedUserData = await UserModel.findByIdAndUpdate(id,{$set : {email: userData.email, name: userData.userName, phoneNumber: userData.phoneNumber, isAdmin: userData.isAdmin}}, {new : true, runValidators : true});   
 
 
               if(!updatedUserData){
@@ -317,7 +314,7 @@ router.delete("/delete/contact/:contact_id", adminAuthMiddelware, async(req,res)
              }
              return res.send({
                  msg : "contact deleted successfully",
-                 deleteModel
+                 deleteContact
              })
         }catch(err){
              return res.status(500).send({

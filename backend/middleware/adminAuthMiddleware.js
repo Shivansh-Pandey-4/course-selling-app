@@ -9,7 +9,7 @@ const adminAuthMiddelware = (req,res,next)=>{
       }
       try{
          const decoded = jwt.verify(token,process.env.ADMIN_JWT_SECRET);
-         req.author_id = decoded.author_id;
+         req.author_info = decoded;
          next();
       }catch(err){
          return res.status(500).send({

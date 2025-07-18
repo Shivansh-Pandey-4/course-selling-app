@@ -14,7 +14,7 @@ const purchasedCourseSchema = new mongoose.Schema({
       author_id : {
          type : mongoose.Schema.Types.ObjectId,
          required : true,
-         ref : "Admin"
+         ref : "User"
       }
 },{timestamps:true});
 
