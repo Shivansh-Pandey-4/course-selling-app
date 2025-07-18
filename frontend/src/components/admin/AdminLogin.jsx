@@ -1,7 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import useIsAdminLoggedIn from "../../hooks/useIsAdminLoggedIn"
+import useIsAdminLoggedIn from "../../hooks/useIsAdminLoggedIn";
+import useUserIsLoggedIn from "../../hooks/useIsUserLoggedIn";
+import decodeUserToken from "../../utils/decodeUserToken";
+
+
+
 
 
 const AdminLogin = ()=>{
@@ -9,17 +14,41 @@ const AdminLogin = ()=>{
       const [email,setEmail] = useState("");
       const [password,setPassword] = useState("");
       const navigate = useNavigate();
+
+
+      const isUserLoggedIn = useUserIsLoggedIn();
       const isAdminLoggedIn = useIsAdminLoggedIn();
 
+
       useEffect(()=>{
-          if(isAdminLoggedIn.isAdminLoggedIn){
-               navigate("/admin/dashboard");
-          }
-      },[]);
-
-
+         if(isAdminLoggedIn.isAdminLoggedIn){
+              navigate("/admin/dashboard");
+         }
+      },[])
+      
+      
+      
       async function handleForm(event) {
-           event.preventDefault();
+         event.preventDefault();
+         
+         const userToken = decodeUserToken(isUserLoggedIn.setIsLoggedIn);
+            if (userToken == null) {
+               toast.error("First login as user.");
+              setTimeout(() => {
+                  navigate("/login");
+                  }, 1500);
+               return;
+            }
+
+            if (!userToken?.isAdmin) {
+               toast.error("You are not an admin");
+               setTimeout(() => {
+                  navigate("/");
+                  }, 1500);
+               return;
+            }
+
+             
 
              if( !email|| !password){
                     toast.error("fill all the fields");
@@ -41,8 +70,10 @@ const AdminLogin = ()=>{
 
              if(data.msg == "admin logged in successfully"){
                   localStorage.setItem("adminToken",data.token);
-
+                  
                    isAdminLoggedIn.setIsAdminLoggedIn(true);
+
+                   console.log("login: ",isAdminLoggedIn);
 
                    toast.success("Welcome Back Admin");
 
@@ -56,6 +87,7 @@ const AdminLogin = ()=>{
 
      return (
         <div className="bg-[#242424]">
+            <h1 className="text-3xl text-white pt-10 text-center font-serif">Restricted Access: Admins Only. Please log in using your administrator credentials</h1>
             <form onSubmit={handleForm} className="flex justify-center items-center ">
                <div className="mr-20 pt-20 ">
                     <h1 className="text-4xl mb-8 text-white font-serif">Login Page</h1>

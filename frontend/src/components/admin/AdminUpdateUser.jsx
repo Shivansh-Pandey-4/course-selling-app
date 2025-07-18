@@ -10,6 +10,7 @@ const AdminUpdateUser = ()=>{
     const [userName,setUserName] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const [userPhone, setUserPhone] = useState("");
+    const [isAdmin, setIsAdmin] = useState("");
 
 
     const {user_id} = useParams();
@@ -27,9 +28,11 @@ const AdminUpdateUser = ()=>{
      const data = await response.json();
      if(data.msg=="user exist"){
           toast.success("user detail found successfully");
+
           setUserEmail(data.userExist.email);
           setUserName(data.userExist.name);
           setUserPhone(data.userExist.phoneNumber);
+          setIsAdmin(data.userExist.isAdmin);
      }else {
          toast.error(data.msg || data.detailError);
      }
@@ -43,7 +46,7 @@ const AdminUpdateUser = ()=>{
                 "Content-Type" : "application/json",
                 "token" : localStorage.getItem("adminToken")
              },
-             body : JSON.stringify({email : userEmail,userName,phoneNumber : parseInt(userPhone)})
+             body : JSON.stringify({email : userEmail,userName,phoneNumber : parseInt(userPhone), isAdmin })
          })
          const data = await response.json();
          if(data.msg == "user updated successfully"){
@@ -79,6 +82,13 @@ const AdminUpdateUser = ()=>{
                            <label className="text-xl" htmlFor="email">Email</label> <br />
                            <input type="email" id="email" required onChange={(event)=>setUserEmail(event.target.value)} value={userEmail} className=" w-60 p-2 mt-1 rounded-lg h-8 border-indigo-500 border-2" />
                      </div>
+                    <div className="my-3">
+                         <label className="text-xl mr-3" htmlFor="status">Admin :</label>
+                         <select  className=" w-30 h-8 px-4 mt-1 rounded-lg border-2 border-indigo-500" id="status" value={isAdmin} onChange={(event) => setIsAdmin(event.target.value === "true")}>
+                         <option value="true">True</option>
+                         <option value="false">False</option>
+                         </select>
+                    </div>
                      <div>
                             <label className="text-xl" htmlFor="phoneNumber">Phone Number</label> <br />
                             <input type="number" id="phoneNumber" required onChange={(event)=>setUserPhone(event.target.value)} value={userPhone} className=" w-60 p-2 mt-1 rounded-lg h-8 border-indigo-500 border-2" />

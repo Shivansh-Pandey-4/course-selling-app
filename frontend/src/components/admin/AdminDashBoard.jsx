@@ -6,15 +6,10 @@ import AdminCourseCard from "./AdminCourseCard";
 const AdminDashBoard = () => {
   const [adminCourses, setAdminCourses] = useState([]);
   const [error, setError] = useState(false);
-  const isAdminLoggedIn = useIsAdminLoggedIn();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAdminLoggedIn.isAdminLoggedIn == false) {
-      navigate("/error");
-    } else {
       fetchAdminData();
-    }
   }, []);
 
   async function fetchAdminData() {
@@ -26,10 +21,14 @@ const AdminDashBoard = () => {
     });
     const data = await response.json();
     if (data.msg == "course exist") {
+       if(data.allCourses.length==0){
+          setError(true);
+       }
       setAdminCourses(data.allCourses);
-    } else {
-      navigate("/");
-    }
+    } else{
+            toast.error(data.detailError || data.msg);
+            return ;
+        }
   }
 
   function handleDeleteCourse(courseId) {
@@ -37,7 +36,7 @@ const AdminDashBoard = () => {
   }
 
   if (error) {
-    return <h1 className="text-2xl text-center">No Course exist for you.</h1>;
+    return <h1 className="text-2xl text-center">No Course Created by you.</h1>;
   }
 
   if (adminCourses.length == 0) {

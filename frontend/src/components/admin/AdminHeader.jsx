@@ -5,12 +5,12 @@ import useIsAdminLoggedIn from "../../hooks/useIsAdminLoggedIn";
 
 
 const AdminHeader = () =>{
-
-    const isAdminLoggedIn = useIsAdminLoggedIn();
-
     
-     return (
-         <div className="flex justify-around items-center bg-[#646cff]">
+    const isAdminLoggedIn = useIsAdminLoggedIn();
+    
+    
+    return (
+        <div className="flex justify-around items-center bg-[#646cff]">
             <div className="website-logo-container">
                  <img className="w-28" src="\logo-transparent.png" alt="logo-website" />
             </div>
@@ -19,7 +19,7 @@ const AdminHeader = () =>{
                     <ul className="flex text-xl text-gray-400 ">
 
         {
-         isAdminLoggedIn.isAdminLoggedIn ? <>
+          isAdminLoggedIn.isAdminLoggedIn ? <>
           
                        <Link to={"/admin/dashboard"}>
                             <li className="mx-5 cursor-pointer relative text-black hover:text-white after:content-[''] after:block after:h-[2px] after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left">
@@ -44,14 +44,14 @@ const AdminHeader = () =>{
                          <Link to={"/"}>
                             <li onClick={()=>{
                                 localStorage.removeItem("adminToken");
+                                isAdminLoggedIn.setIsAdminLoggedIn(false);
                                 toast.success("User Logged Out successfully.");
                                 
                             }} className="mx-5 cursor-pointer relative text-black hover:text-white after:content-[''] after:block after:h-[2px] after:bg-white after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:origin-left">
                             Logout </li>
                         </Link> 
                        </>  : <div className="text-white" >This is Admin authorized route</div>
-                
-     }
+        }
                     </ul>
                  </nav>
             </div>

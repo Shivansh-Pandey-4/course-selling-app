@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import useIsAdminLoggedIn from "../../hooks/useIsAdminLoggedIn";
 import { Link, useNavigate } from "react-router-dom";
+import decodeAdminToken from "../../utils/decodeAdminToken";
 
 
 const AdminContacts = () => {
   const [contacts, setContacts] = useState([]);
   const isAdminLoggedIn = useIsAdminLoggedIn();
+  const adminToken = decodeAdminToken();
   const navigate = useNavigate(); 
 
 
@@ -22,6 +24,9 @@ const AdminContacts = () => {
     const data = await response.json();
     if (data.msg === "contacts exists") {
       setContacts(data.allContacts);
+    }else{
+        toast.error(data.detailError || data.msg);
+        return ;
     }
   }
 
@@ -48,9 +53,6 @@ const AdminContacts = () => {
   }
 
   useEffect(() => {
-    if(isAdminLoggedIn.isAdminLoggedIn == false){
-          navigate("/error");
-    }
     fetchData();
   }, []);
 
@@ -70,7 +72,6 @@ const AdminContacts = () => {
             <th className="border  px-6 text-xl py-4">Users Email</th>
             <th className="border  px-6 text-xl py-4">Users Message</th>
             <th className="border  px-4 text-xl py-4">Delete List</th>
-            <th className="border  px-4 text-xl py-4">Update List</th>
           </tr>
         </thead>
         <tbody>
@@ -81,8 +82,6 @@ const AdminContacts = () => {
               <td className=" text-center text-lg border px-6 py-4">{contact.message}</td>
               <td className="text-center text-lg border px-6 py-1"> <button onClick={()=>{ deleteUser(contact._id); }} className="bg-indigo-500 text-white rounded-xl px-4 py-1 hover:bg-red-400 border-2 hover:text-black cursor-pointer ">Delete</button>
               </td>
-               <td className="text-center border px-6 py-1"> <Link to={"/admin/update/contact/"+contact._id}>
-                <button className="bg-pink-300 text-black rounded-xl px-4 py-1 hover:bg-emerald-400 hover:text-black border-2 cursor-pointer ">Edit</button></Link></td>
             </tr>
           ))}
         </tbody>

@@ -8,25 +8,15 @@ const AdminCreateCourse = ()=>{
 
       const [courseName,setCourseName] = useState("");
       const [description ,setDescription] = useState("");
-      const [price, setPrice] = useState();
+      const [price, setPrice] = useState("");
       const [imageUrl, setImageUrl] = useState("");
 
       const navigate = useNavigate();
       const isAdminLoggedIn = useIsAdminLoggedIn();
 
-      useEffect(()=>{
-         
-         if(isAdminLoggedIn.isAdminLoggedIn == false){
-              navigate("/error");
-         }
-
-      },[])
-
-
       async function handleForm(event) {
            event.preventDefault();
 
-           
              const response = await fetch("http://localhost:3000/admin/create/course",{
                    method : "POST",
                    headers : {
@@ -45,11 +35,12 @@ const AdminCreateCourse = ()=>{
                         setPrice("");
                    toast.success("Course Created Successfully.");
                     navigate("/admin/dashboard");
-             }else {
-                  return toast.error(data.detailError || data.msg);
              }
-      }
-
+             else{
+                  toast.error(data.detailError || data.msg);
+                  return ;
+               }
+            }
 
 
      return (

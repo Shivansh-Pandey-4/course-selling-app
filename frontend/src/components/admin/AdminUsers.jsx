@@ -23,6 +23,10 @@ const AdminUsers = () => {
     if (data.msg === "users exist") {
       setUsers(data.allUsers);
     }
+    else{
+        toast.error(data.detailError || data.msg);
+        return ;
+    }
   }
 
   async function deleteUser(user_id){
@@ -43,14 +47,11 @@ const AdminUsers = () => {
 
             fetchData();
          }else {
-              toast.error(data.msg || data.detailError )
+               toast.error(data.detailError || data.msg);
          }
   }
 
   useEffect(() => {
-    if(isAdminLoggedIn.isAdminLoggedIn == false){
-          navigate("/error");
-    }
     fetchData();
   }, []);
 
@@ -69,6 +70,7 @@ const AdminUsers = () => {
             <th className="border  px-6 text-xl py-4">Users Name</th>
             <th className="border  px-6 text-xl py-4">Users Email</th>
             <th className="border  px-6 text-xl py-4">Users Phone Number</th>
+            <th className="border  px-4 text-xl py-4">Admin Status</th>
             <th className="border  px-4 text-xl py-4">Delete List</th>
             <th className="border  px-4 text-xl py-4">Update List</th>
           </tr>
@@ -79,10 +81,13 @@ const AdminUsers = () => {
               <td className="border  text-center text-lg px-6 py-4">{user.name}</td>
               <td className="border  text-center text-lg px-6 py-4">{user.email}</td>
               <td className=" text-center text-lg border px-6 py-4">{user.phoneNumber}</td>
+              <td className=" text-center text-lg text-black border px-6 py-4">{user.isAdmin ?"True": "False"}</td>
+              
               <td className="text-center text-lg border px-6 py-1"> <button onClick={()=>{ deleteUser(user._id); }} className="bg-indigo-500 text-white rounded-xl px-4 py-1 hover:bg-red-400 border-2 hover:text-black cursor-pointer ">Delete</button>
               </td>
                <td className="text-center border px-6 py-1"> <Link to={"/admin/update/user/"+user._id}>
                 <button className="bg-pink-300 text-black rounded-xl px-4 py-1 hover:bg-emerald-400 hover:text-black border-2 cursor-pointer ">Edit</button></Link></td>
+              
             </tr>
           ))}
         </tbody>

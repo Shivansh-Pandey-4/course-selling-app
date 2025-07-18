@@ -35,11 +35,11 @@ const AdminCourseCard = (props)=>{
      return (
           <div className="text-white text-center max-w-xs border p-5 rounded-2xl bg-[#2d2d2d] transition transform hover:shadow-xl hover:-translate-y-2 duration-300">
               <img className="w-75 h-45 " src={imageUrl} alt="" />
-               <h1 className="text-lg font-bold mt-3 mb-2">{courseName.toUpperCase()}</h1>
-               <p className="mb-2">{description}</p>
-              <h3 className=" mb-2" >Author Name: {author_id?.name} </h3>
-              <h3 className=" mb-2" >Created At : {createdAt.slice(0, 10)} </h3>
-              <h3 className=" mb-2" >Price : ₹{price}</h3>
+               <h1 className="text-xl font-bold mt-3 mb-2 font-serif">{courseName.toUpperCase()}</h1>
+               <p className="mb-2 font-serif">{description}</p>
+              <h3 className=" mb-2" ><span className="text-lg font-bold">Author Name</span> : {author_id?.name} </h3>
+              <h3 className=" mb-2" ><span className="text-lg font-bold">Created At</span> : {createdAt.slice(0, 10)} </h3>
+              <h3 className=" mb-2" ><span className="text-lg font-bold">Price</span> : ₹{price}</h3>
               <Link to={"/courses/"+_id}>
                              <button className=" mt-8 px-3 py-1 rounded-lg text-gray-400 hover:bg-[#646cff] hover:text-white cursor-pointer border-1 border-white">Edit Course
                              </button>
