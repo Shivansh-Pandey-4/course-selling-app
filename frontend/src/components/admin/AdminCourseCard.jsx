@@ -40,7 +40,7 @@ const AdminCourseCard = (props)=>{
               <h3 className=" mb-2" ><span className="text-lg font-bold">Author Name</span> : {author_id?.name} </h3>
               <h3 className=" mb-2" ><span className="text-lg font-bold">Created At</span> : {createdAt.slice(0, 10)} </h3>
               <h3 className=" mb-2" ><span className="text-lg font-bold">Price</span> : ₹{price}</h3>
-              <Link to={"/courses/"+_id}>
+              <Link to={"/admin/edit/course/"+_id}>
                              <button className=" mt-8 px-3 py-1 rounded-lg text-gray-400 hover:bg-[#646cff] hover:text-white cursor-pointer border-1 border-white">Edit Course
                              </button>
               </Link>

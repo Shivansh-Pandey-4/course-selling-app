@@ -21,6 +21,7 @@ import AdminCreateCourse from "./components/admin/AdminCreateCourse";
 import AdminUsers from "./components/admin/AdminUsers";
 import AdminUpdateUser from "./components/admin/AdminUpdateUser";
 import AdminContacts from "./components/admin/AdminContacts";
+import AdminEditCourse from "./components/admin/AdminEditCourse";
 
 import { LoginProvider } from "./context/LoginContext";
 import { CartProvider } from "./context/CartContext";
@@ -128,6 +129,15 @@ const appRouter = createBrowserRouter([
           </ProtectedAdminRoute>
         ),
       },
+      {
+         path : "edit/course/:course_id",
+         element : (
+           <ProtectedAdminRoute>
+              <AdminHeader/>
+              <AdminEditCourse/>
+           </ProtectedAdminRoute>
+         )
+      }
     ],
   },
 ]);

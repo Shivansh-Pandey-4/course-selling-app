@@ -14,7 +14,6 @@ const AdminUpdateUser = ()=>{
 
 
     const {user_id} = useParams();
-    const isAdminLoggedIn = useIsAdminLoggedIn();
     const navigate = useNavigate();
 
     async function fetchData(){
@@ -58,11 +57,7 @@ const AdminUpdateUser = ()=>{
     }
 
     useEffect(()=>{
-         if(isAdminLoggedIn.isAdminLoggedIn){
-               fetchData();
-         }else {
-               navigate("/error");
-         }
+          fetchData();
     },[]);
 
     if(!userName){
