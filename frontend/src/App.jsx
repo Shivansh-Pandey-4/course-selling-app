@@ -1,4 +1,5 @@
 import React from "react";
+import { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -14,14 +15,14 @@ import Cart from "./components/user/Cart";
 import Error from "./components/user/Error";
 import Login from "./components/user/Login";
 
-import AdminLogin from "./components/admin/AdminLogin";
-import AdminDashBoard from "./components/admin/AdminDashBoard";
-import AdminHeader from "./components/admin/AdminHeader";
-import AdminCreateCourse from "./components/admin/AdminCreateCourse";
-import AdminUsers from "./components/admin/AdminUsers";
-import AdminUpdateUser from "./components/admin/AdminUpdateUser";
-import AdminContacts from "./components/admin/AdminContacts";
-import AdminEditCourse from "./components/admin/AdminEditCourse";
+const AdminLogin = lazy(() => import("./components/admin/AdminLogin"));
+const AdminDashBoard = lazy(() => import("./components/admin/AdminDashBoard"));
+const AdminHeader = lazy(() => import("./components/admin/AdminHeader"));
+const AdminCreateCourse = lazy(() => import("./components/admin/AdminCreateCourse"));
+const AdminUsers = lazy(() => import("./components/admin/AdminUsers"));
+const AdminUpdateUser = lazy(() => import("./components/admin/AdminUpdateUser"));
+const AdminContacts = lazy(() => import("./components/admin/AdminContacts"));
+const AdminEditCourse = lazy(() => import("./components/admin/AdminEditCourse"));
 
 import { LoginProvider } from "./context/LoginContext";
 import { CartProvider } from "./context/CartContext";
@@ -51,7 +52,9 @@ const AdminApp = () => {
     <>
     <AdminProvider>
       <LoginProvider>
-      <Outlet />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
       <Footer />
     </LoginProvider>
   </AdminProvider>
