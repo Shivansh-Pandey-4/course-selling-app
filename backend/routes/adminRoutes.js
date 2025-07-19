@@ -324,5 +324,41 @@ router.delete("/delete/contact/:contact_id", adminAuthMiddelware, async(req,res)
         }
 })
 
+router.put("/edit/course/:course_id", adminAuthMiddelware, async(req,res)=>{
+         const response = createCourseSchema.safeParse(req.body);
+         if(!response.success){
+              return res.status(411).send({
+                 msg : 'invalid credential format',
+                 detailError : response.error.issues[0].message 
+              })
+         } 
+       
+          const {course_id} = req.params;
+          if(!course_id){
+              return res.status(411).send({
+                  msg : "invalid course request, course_id not provided"
+              })
+          }
+          try{
+              const {courseName, description, price, imageUrl} = req.body;
+              const updateCourse = await CourseModel.findByIdAndUpdate(course_id, {$set:{courseName, description, price, imageUrl}}, {runValidators : true, new : true});
+               
+               if(!updateCourse){
+                   return res.status(411).send({
+                      msg : "failed to Edit: invalide course_id"
+                   })
+               }
+               return res.send({
+                  msg : "course details edited successfully",
+                  updateCourse
+               })
+          }catch(err){
+              return res.status(500).send({
+                  msg : "server issue",
+                  detailError : err.message
+              })
+          }
+})
+
 
 module.exports = router;
