@@ -52,11 +52,20 @@ const AdminLogin = ()=>{
 
              if( !email|| !password){
                     toast.error("fill all the fields");
+                    return ;
              } 
 
-             setEmail("");
-             setPassword("");
-           
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                  if (!emailRegex.test(email)) {
+                     toast.error("Please enter a valid email address");
+                     return;
+                  }
+
+                  if (password.length < 6) {
+                     toast.error("Password must be at least 6 characters");
+                     return;
+                  }
+
 
              const response = await fetch("http://localhost:3000/admin/signin",{
                    method : "POST",
@@ -76,6 +85,8 @@ const AdminLogin = ()=>{
                    console.log("login: ",isAdminLoggedIn);
 
                    toast.success("Welcome Back Admin");
+                           setEmail("");
+                          setPassword("");
 
                     navigate("/admin/dashboard");
              }else {

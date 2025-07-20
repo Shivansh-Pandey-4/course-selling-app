@@ -28,11 +28,19 @@ const Login = ()=>{
 
              if( !email|| !password){
                     toast.error("fill all the fields");
+                    return;
              } 
 
-             setEmail("");
-             setPassword("");
-           
+             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                  if (!emailRegex.test(email)) {
+                     toast.error("Please enter a valid email address");
+                     return;
+                  }
+
+                  if (password.length < 6) {
+                     toast.error("Password must be at least 6 characters");
+                     return;
+                  }
 
              const response = await fetch("http://localhost:3000/user/login",{
                    method : "POST",
@@ -47,6 +55,9 @@ const Login = ()=>{
                   localStorage.setItem("token",data.token);
                    isUserLoggedIn.setIsLoggedIn(true);
                    toast.success("User LoggedIn successfully");
+      
+                     setEmail("");
+                     setPassword("");
                     navigate("/");
              }else {
                   return toast.error(data.detailError || data.msg);
@@ -60,7 +71,7 @@ const Login = ()=>{
             <form onSubmit={handleForm} className="flex justify-center items-center ">
                <div className="mr-20 pt-20 ">
                     <h1 className="text-4xl mb-8 text-white font-serif">Login Page</h1>
-                      <span className="text-white text-xl">Don't have an account ? <Link to={"/signup"}> <button className="text-2xl cursor-pointer border-white text-indigo-500 border px-2 py-1 rounded-xl hover:bg-white hover:text-black"> Signup</button></Link></span>
+                      <span className="text-white text-xl">Don't have an account ? <Link to={"/signup"}> <button type="button" className="text-2xl cursor-pointer border-white text-indigo-500 border px-2 py-1 rounded-xl hover:bg-white hover:text-black"> Signup</button ></Link></span>
                     <div className="border-t-2 border-white my-2"></div>
                     
                      <div className="my-5">
