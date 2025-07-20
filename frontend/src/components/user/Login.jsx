@@ -7,7 +7,6 @@ import useUserIsLoggedIn from "../../hooks/useIsUserLoggedIn";
 
 const Login = ()=>{
 
-
       const [email,setEmail] = useState("");
       const [password,setPassword] = useState("");
       const navigate = useNavigate();

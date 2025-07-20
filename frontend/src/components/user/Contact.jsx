@@ -10,13 +10,25 @@ const Contact = () =>{
     
       async function handleForm(event){
            event.preventDefault();
-           if(!username || !email || !message ){
+           if(!username.trim() || !email.trim() || !message.trim() ){
                  return  toast.error("fill all the three inputs");
            }
 
-           setEmail("");
-           setUsername("");
-           setMessage("");
+           if (username.length < 2) {
+                     toast.error("Username must be at least 2 characters");
+                     return;
+            }
+
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                  if (!emailRegex.test(email)) {
+                     toast.error("Please enter a valid email address");
+                     return;
+                  } 
+              if(message.length<10){
+                  toast.error("Message should be 10 characters long");
+                  return;
+              }
+
 
            const response = await fetch("http://localhost:3000/contact",{
                  method : "POST",
@@ -28,6 +40,9 @@ const Contact = () =>{
            const data = await response.json();
               if(data.msg == "message send successfully. Thankyou for contacting us"){
                    toast.success(data.msg+"😇 ");
+                    setEmail("");
+                    setUsername("");
+                    setMessage("");
               }else{
                   toast.error(`failed to contact us. Try again later.${data.detailError}`);
               }
