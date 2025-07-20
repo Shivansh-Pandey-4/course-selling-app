@@ -1,6 +1,6 @@
 import { useState , useEffect } from "react";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , Link } from "react-router-dom";
 import useUserIsLoggedIn from "../../hooks/useIsUserLoggedIn";
 
 
@@ -60,6 +60,8 @@ const Login = ()=>{
             <form onSubmit={handleForm} className="flex justify-center items-center ">
                <div className="mr-20 pt-20 ">
                     <h1 className="text-4xl mb-8 text-white font-serif">Login Page</h1>
+                      <span className="text-white text-xl">Don't have an account ? <Link to={"/signup"}> <button className="text-2xl cursor-pointer border-white text-indigo-500 border px-2 py-1 rounded-xl hover:bg-white hover:text-black"> Signup</button></Link></span>
+                    <div className="border-t-2 border-white my-2"></div>
                     
                      <div className="my-5">
                          <label className="text-xl text-gray-300 " htmlFor="email">Email</label> <br />
@@ -74,6 +76,7 @@ const Login = ()=>{
                      </div>
                      
                      <button className="border-2 px-6 rounded-lg py-1 mt-2 bg-indigo-600 text-white border-black font-serif hover:bg-indigo-700 cursor-pointer mb-30 text-xl">Login</button>
+                     
                </div>
                <div >
                   <img className="w-90" src="/Mobile login-bro.png" alt="login-image" />

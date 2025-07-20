@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import  {useNavigate} from "react-router-dom";
+import  {useNavigate , Link} from "react-router-dom";
 
 
 const Signup = ()=>{
@@ -54,6 +54,11 @@ const Signup = ()=>{
             <form onSubmit={handleForm} className="flex justify-center items-center ">
                <div className="mr-20 pt-20">
                     <h1 className="text-4xl mb-8 text-white font-serif">Signup Page</h1>
+
+                     <span className="text-white text-xl">Already have an account ? <Link to={"/login"}> <button className="text-2xl cursor-pointer border-white text-indigo-500 border px-2 py-1 rounded-xl hover:bg-white hover:text-black"> Login</button></Link>
+                     </span>
+                    <div className="border-t-2 border-white my-2"></div>
+
                      <div className="my-5">
                          <label className="text-xl text-gray-300 " htmlFor="username">Username</label> <br />
                           <input required autoFocus className="border-2 border-[#646cff] text-white px-2 mt-2 py-1 w-70 rounded-lg" type="text" id="username" placeholder="Enter Username" value={username} onChange={(event)=>{setUsername(event.target.value)}} />
