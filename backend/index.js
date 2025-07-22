@@ -37,3 +37,10 @@ app.use("/contact",contactRouter);
 app.use("/courses",courseRouter);
 app.use("/admin",adminRouter);
 
+app.use((err, req, res, next) => {
+  res.status(500).send({
+    msg: "Global error occurred",
+    detailError: err.message || "Unknown error"
+  });
+});
+
